@@ -6,4 +6,4 @@ Due to low funding some features like being able to post process APT files from 
 
 If there is ANYONE and I mean literally anyone I kindly ask you that if you have anything useful to contribute to contact: karlo.ugrin@gmail.com
 
-There is a to do list if someone is willinf to contribute (!!ask via email!!)
+There is a To-do list if someone is willing to contribute (!!ask via email!!)
