@@ -644,5 +644,56 @@ class Myparseline:
                 else:
                     print(f"G4 S{round(float(dwell), 3)}")
             
+            elif line.startswith("CYCLE/"):
+                if "CYCLE/ON" in line:
+                    if self.ls_cycle != "":
+                        print(self.ls_cycle)
+                    else:
+                        print(self.LANG["Nema ciklusa"])
+                     
+                elif "TAP" in line:
+                    tap = line.split(",")
+                    dubina = tap[1].strip()
+                    pitch = tap[2].strip()
+               
+                    while True:
+                        if self.lsrotation == "M3 " or self.lsrotation == "CLW ":
+                            returnsmj = "M4"
+                            self.lsrotation = "M3 "
+                            break
+                        elif self.lsrotation == "M4 " or self.lsrotation == "CCLW ":
+                            returnsmj = "M3"
+                            self.lsrotation = "M4 "
+                            break
+                        else:
+                            self.lsrotation = input(self.LANG["spindle m3/m4"]).strip().upper() + " "
+                            continue
+                 
+                    povrsina = float(input(self.LANG["tap depth"] ).strip())
+                       
+                    depth = round((povrsina - float(dubina)), 3)
+                 
+                    while True:
+                        holder = input(self.LANG["holder type"]).strip()
+                        if holder == "0":
+                            if self.ls_tip_rev == "SFM":
+                                F = self.ls_spindle_speed * pitch
+                            elif self.ls_tip_rev == "RPM":
+                                F = pitch
+                            else:
+                                print(self.LANG["nepoznat posmak"] + line)
+                            self.ls_cycle="G63 Z"+str(depth)+" F"+str(F)+" "+returnsmj
+                            print(self.ls_cycle)
+                            break
+                        elif holder == "1":
+                            self.ls_cycle="G331 Z"+str(depth)+" F"+str(pitch)+" \n G332 Z"+str(depth)+" "+returnsmj
+                            print(self.ls_cycle)
+                            break
+                        else:
+                            print(self.LANG[";Krivi broj"])
+                            continue
+                else:
+                    print(self.LANG["neobradeni cycle"] + line)
+                       
             else:
                 print(self.LANG["Nepoznata naredba"], line)

@@ -40,8 +40,9 @@ HR = {
     "neispravni podaci"         : "Greška - neispravni podaci za naredbu:",
     "kraj"                      : ";Kraj programa",
     "partno"                    : ";Dio: ",
-    "unesite datoteku"          : "- Unesite naziv datoteke (s ekstenzijom .txt): ",
-    "tlaxis"                    : "; Osi alata su: "
+    "unesite datoteku"          : "- Unesite naziv datoteke (.txt datoteka s ): ",
+    "tlaxis"                    : "; Osi alata su: ",
+    "neobradeni cycle"          : "Greška - neobrađena cCycle komanda: "
 
 }
 
@@ -87,6 +88,7 @@ EN = {
     "kraj"                      : ";End of program",
     "partno"                    : ";Part: ",
     "unesite datoteku"          : "- Enter the file name (with .txt extension): ",
-    "tlaxis"                    : "; Tool axes are: "
+    "tlaxis"                    : "; Tool axes are: ",
+    "neobradeni cycle"          : "Error - unprocessed Cycle command: "
     
 }
