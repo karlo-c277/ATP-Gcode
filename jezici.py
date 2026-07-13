@@ -54,7 +54,8 @@ HR = {
     "iso6983?"                  : "- Podržava li Vaš CNC stroj ISO 6983 standard? (DA/NE): ",
     "iso deafault/not"          : "- Da li je ISO 6983 aktiviran po defaultu ili ne (DA/NE): ",
     "iso6983 command"           : "- Unesite G-komandu za aktivaciju ISO 6983 (stisnite ENTER ako je G291): ",
-    "samo je iso"               : "Žao nam je, ali ovaj post procesor je samo za ISO 6983 standard. Provjerite postavke Vašeg CNC stroja."
+    "samo je iso"               : "Žao nam je, ali ovaj post procesor je samo za ISO 6983 standard. Provjerite postavke Vašeg CNC stroja.",
+    "preset"                    : "- Odaberite program na vašem stroju za jednostavnije pokretanje (Costum/0   WinNC/1): "
 
 }
 
@@ -113,6 +114,7 @@ EN = {
     "iso6983?"                  : "- Does your CNC machine support ISO 6983 standard? (YES/NO): ",
     "iso deafault/not"          : "- Is ISO 6983 activated by default or not (YES/NO): ",
     "iso6983 command"           : "- Enter the G-command for activating ISO 6983 (press ENTER if it is G291): ",
-    "samo je iso"               : "Sorry but this post processor is only for ISO 6983 standard. Please check your CNC machine settings."
+    "samo je iso"               : "Sorry but this post processor is only for ISO 6983 standard. Please check your CNC machine settings.",
+    "preset"                    : "- Select the program on your machine for easier startup (Costum/0   WinNC/1): "
     
 }

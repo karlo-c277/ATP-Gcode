@@ -1,3 +1,4 @@
+from (Apt-gcode startup.py) import preset
 class OutputFilter:
     def __init__(self, LANG):
         self.LANG = LANG
@@ -38,7 +39,7 @@ class OutputFilter:
                             break
 
                 with open(filename, "w", encoding="utf-8") as file:
-
+                    if 
                     for line in output_lines:
                         if not line.strip().startswith("- "):
                             line = " ".join(line.split())

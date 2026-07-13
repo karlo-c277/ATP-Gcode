@@ -33,9 +33,15 @@ while True:
         break
     else:
         print("- Invalid choice. Please enter HR or EN.")
+        
+preset = input(LANG["preset"]).strip().upper()
           
 while True:
-    if input(LANG["iso6983?"]).strip().upper() in ["DA", "YES", "1"]:
+    if preset == "1":
+        iso6983 = "G291"
+        break
+    
+    elif input(LANG["iso6983?"]).strip().upper() in ["DA", "YES", "1"]:
         deafault = input(LANG["iso deafault/not"]).strip().upper()
         if deafault in ["NOT", "NE", "NO", "0"]:
             iso6983 = input(LANG["iso6983 command"]).strip().upper()
