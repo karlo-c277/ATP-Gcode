@@ -260,7 +260,7 @@ class Myparseline:
                     
                 if self.rapto==1:
                     
-                    dist=math.hypot(dtx, dty, dtz)
+                    dist=math.hypot(x, y, z)
                     ratio=self.rapto_num/dist
                     rdtx=ratio*x
                     rdty=ratio*y

@@ -244,8 +244,152 @@ export class MyParseline{
                 let z = +coords[1];
             }
             else {
-                write("ERROR GODLTA ")
+                write("ERROR GODLTA ");
             }
+            this.ls_x = (this.ls_x + x).toFixed(this.rnd_num);
+            this.ls_y = (this.ls_y + y).toFixed(this.rnd_num);
+            this.ls_z = (this.ls_z + z).toFixed(this.rnd_num);
+            
+            if (x !== 0){
+                koord_x = " X" + x;
+            }
+            if (y !== 0){
+                koord_y = " Y" + y;
+            }
+            if (z !== 0){
+                koord_z = " Z" + z;
+            }
+
+            if (this.rapto === 1) {
+                let dist = Math.hypot(x, y, z);
+                let ratio = dist !== 0 ? this.rapto_num / dist : 0;
+                let rdtx = ratio*x;
+                let rdty = ratio*y;
+                let rdtz = ratio*z;
+                let koord__x = koord_x-rdtx;
+                let koord__y = koord_y-rdty;
+                let koord__z = koord_z-rdtz;
+
+                write("G0 X" + koord__x + " Y" + koord__y + " Z" + koord__z + "\nG1");
+
+                this.rapto = 0;
+            }
+
+            write(koord_x, koord_y, koord_z);
+
+        }
+        else if (line.starstWith("GOTO")){
+            let koord_x="";
+            let koord_y="";
+            let koord_z="";
+
+            if (this.ls_dim_typ !== "G90"){
+                write("G90");
+                this.ls_dim_typ = "G90";
+            }
+            let coords = line.split(/[,/]+/);
+            let x = +coords[1];
+            let y = +coords[2];
+            let z = +coords[3];
+
+            if (x !== self.ls_x){
+                let koord_x = " X" + x;
+            }
+            if (y !== self.ls_y){
+                let koord_y = " Y" + y;
+            }
+            if (z !== self.ls_z){
+                let koord_z = " Z" + z;
+            }
+
+            if (this.rapto === 1){
+                let dtx = this.ls_x - x;
+                let dty = this.ls_y - y;
+                let dtz = this.ls_z - z;
+                let dist = Math.hypot(dtx, dty, dtz);
+                let ratio = dist !== 0 ? this.rapto_num / dist : 0;
+                let rdtx = ratio*dtx;
+                let rdty = ratio*dty;
+                let rdtz = ratio*dtz;
+                let koord__x = koord_x-rdtx;
+                let koord__y = koord_y-rdty;
+                let koord__z = koord_z-rdtz;
+
+                write("G0 X" + koord__x + " Y" + koord__y + " Z" + koord__z + "\nG1");
+
+                this.rapto = 0;
+            }
+            write(koord_x, koord_y, koord_z);
+            
+            this.ls_x=x;
+            this.ls_y=y;
+            this.ls_z=z;
+        }
+        else if (line.startsWith("SPINDL")){
+            if (line.includes("OFF")){
+                this.lsroation = "M5";
+                write("M5");
+            }
+            else if (!line.includes("ON")){
+                let spindlDT = line.split(/[,/]+/)
+                if (spindlDT.length === 4){
+                    let num = spindlDT[1].trim();
+                    let rotation = spindlDT[3].trim();
+
+                    this.ls_spindle_speed = num.toFixed(this.rnd_num)
+
+                    if (line.includes("SFM")||line.includes("SMM")) {
+                        let rotation_typ = "G96";
+                    }
+                    else if (line.includes("RPM")){
+                        let rotation_typ = "G97";
+                    }
+                    else {
+                        write("ERROR SPINDLE SPEED IS NOT DEFINED CORECTLY (SFM OR RPM) "+line);
+                    }
+                    if (this.ls_tip_rev !== rotation_typ){
+                        this.ls_tip_rev = rotation_typ;
+                    }
+                    if (line.includes("CLW")){
+                        this.lsroation = "M3";
+                    }
+                    else if (line.includes("CCLW")){
+                        this.lsroation = "M4";
+                    }
+                    else {
+                        write("ERROR SPINDLE DIRECTION NOT DEFINED " +line);
+                    }
+                    this.ls_on_rotation = "S" + this.ls_spindle_speed + " " + this.ls_tip_rev + " " + this.lsrotation;
+                    write(this.ls_on_rotation);
+                }
+                else {
+                    write("ERROR SPINDLE DATA NOT VALID REQUIRES NUM VALUE SFM/SMM/RPM AND DIRECTION "+ line);
+                }
+            }
+            else {
+                write(this.ls_on_rotation);
+            }
+        }
+        else if (line.startsWith("FEDRAT")){
+            let feed = line.split(/[,/]+/);
+            let numf = feed[2].trim().toFixed[3];
+
+            if (line.includes("MMPR")||line.includes("IPR")||line.includes("REV")){
+                this.ls_tip_posmak = "G95";
+            }
+            else if (line.includes("MMPM")||line.includes("IPM")||line.includes("MIN")){
+                this.ls_tip_posmak = "G96";
+            }
+            let movement = "G1";
+            if (this.lsmovement!==movement){
+                write(movement);
+                this.lsmovement = movement;
+            }
+            if (line.contains("RAPTO")){
+                this.rapto=1;
+                this.rapto_num = +feed[4]
+            }
+            write(this.ls_tip_posmak + " F" + numf);
         }
     }
 }
